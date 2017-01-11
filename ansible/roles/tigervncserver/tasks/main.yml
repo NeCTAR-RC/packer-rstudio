@@ -1,0 +1,23 @@
+
+- name: Install dependencies
+  apt:
+    pkg: '{{ item }}'
+    state: present
+  with_items:
+    - libtasn1-3-bin
+
+- name: Download TigerVNC
+  get_url:
+    url: "https://bintray.com/tigervnc/stable/download_file?file_path=ubuntu-16.04LTS%2Famd64%2Ftigervncserver_1.7.0-1ubuntu1_amd64.deb"
+    dest: /tmp/tigervncserver.deb
+
+- name: Install TigerVNC
+  apt:
+    deb: /tmp/tigervncserver.deb
+
+- name: Remove conflicting packages
+  apt:
+    pkg: '{{ item }}'
+    state: absent
+  with_items:
+    - vnc4server

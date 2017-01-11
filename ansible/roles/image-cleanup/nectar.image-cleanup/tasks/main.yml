@@ -1,0 +1,22 @@
+---
+- name: set distro-specific variables
+  include_vars: '{{ item }}'
+  with_first_found:
+    - '{{ ansible_distribution }}.yml'
+    - '{{ ansible_os_family }}.yml'
+    - default.yml
+
+- name: log files
+  action: shell find /var/log -type f -exec bash -c 'cat /dev/null > {}' \;
+
+- name: ssh host keys
+  action: shell rm -f /etc/ssh/*key
+  
+- name: root ssh key
+  action: shell rm -rf /root/.ssh 
+
+- name: clean up cloud-init
+  action: shell rm -fr /var/lib/cloud/*
+
+- name: clean up user account
+  action: "shell rm -fr /home/{{ default_user }}/.ssh/*"

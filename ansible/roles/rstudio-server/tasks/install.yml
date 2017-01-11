@@ -1,0 +1,32 @@
+# tasks file for rstudio-server
+---
+- name: install | dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
+  with_items: "{{ rstudio_server_dependencies }}"
+
+- name: install | additional
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ rstudio_server_install }}"
+
+- name: install | create (download) directory
+  file:
+    path: "{{ rstudio_server_downloads_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install | download deb
+  get_url:
+    url: "{{ rstudio_server_package_url }}"
+    dest: "{{ rstudio_server_downloads_path }}/rstudio-server.deb"
+
+- name: install | install deb
+  apt:
+    deb: "{{ rstudio_server_downloads_path }}/rstudio-server.deb"

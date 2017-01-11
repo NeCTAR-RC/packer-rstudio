@@ -1,0 +1,10 @@
+---
+xfce4_apt_packages:
+  - xubuntu-desktop
+
+remove_apt_packages:
+  - network-manager
+  - network-manager-gnome
+  - xfce4-power-manager
+  - xfce4-power-manager-data
+  - xfce4-power-manager-plugins

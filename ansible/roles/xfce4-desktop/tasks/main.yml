@@ -1,0 +1,37 @@
+- name: install xfce4 desktop packages
+  apt:
+    name: '{{ item }}'
+    state: present
+    install_recommends: yes
+  with_items: '{{ xfce4_apt_packages }}'
+
+- name: remove unnecessary packages
+  apt:
+    name: '{{ item }}'
+    state: absent
+    autoremove: yes
+  with_items: '{{ remove_apt_packages }}'
+
+- name: Install background
+  copy:
+    src: files/background.svg
+    dest: /usr/share/backgrounds/background.svg
+
+- name: create kiosk dir
+  file:
+    path: /etc/xdg/xfce4/kiosk
+    state: directory
+
+- name: Install kioskrc
+  copy:
+    src: files/xfce4/kiosk/kioskrc
+    dest: /etc/xdg/xfce4/kiosk/kioskrc
+
+- name: copy xfce4 default config
+  copy:
+    src: 'files/xfce4/xfconf/xfce-perchannel-xml/{{ item }}'
+    dest: '/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/{{ item }}'
+  with_items:
+    - xfce4-panel.xml
+    - xfce4-desktop.xml
+    - xfce4-power-manager.xml

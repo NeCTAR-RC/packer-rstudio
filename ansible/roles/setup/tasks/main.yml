@@ -1,0 +1,5 @@
+---
+- include: apt_setup.yml
+- include: etc_hosts.yml
+- include: remove_floppy.yml
+- include: timezone.yml

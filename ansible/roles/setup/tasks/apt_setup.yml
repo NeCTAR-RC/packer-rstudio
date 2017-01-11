@@ -1,0 +1,13 @@
+- name: set up ubuntu mirror
+  apt_repository: "repo='deb {{ apt_mirror }} {{ item }} main restricted universe multiverse'"
+  with_items:
+    - "{{ ansible_distribution_release }}"
+    - "{{ ansible_distribution_release }}-updates"
+    - "{{ ansible_distribution_release }}-backports"
+    - "{{ ansible_distribution_release }}-security"
+
+- name: wipe existing sources.list
+  copy:
+    content: '# Empty'
+    dest: /etc/apt/sources.list
+    force: true

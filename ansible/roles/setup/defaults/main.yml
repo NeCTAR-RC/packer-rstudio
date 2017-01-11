@@ -1,0 +1,4 @@
+---
+apt_mirror: http://au.archive.ubuntu.com/ubuntu/
+domainname: localdomain
+timezone: Australia/Melbourne

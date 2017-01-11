@@ -1,0 +1,32 @@
+# tasks file for rstudio
+---
+- name: install | dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
+  with_items: "{{ rstudio_dependencies }}"
+
+- name: install | additional
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ rstudio_install }}"
+
+- name: install | create (download) directory
+  file:
+    path: "{{ rstudio_downloads_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install | download deb
+  get_url:
+    url: 'https://download1.rstudio.org/rstudio-{{ rstudio_version }}-amd64.deb'
+    dest: '{{ rstudio_downloads_path }}/rstudio-{{ rstudio_version }}-amd64.deb'
+
+- name: install | install deb
+  apt:
+    deb: '{{ rstudio_downloads_path }}/rstudio-{{ rstudio_version }}-amd64.deb'

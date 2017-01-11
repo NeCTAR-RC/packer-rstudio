@@ -1,0 +1,10 @@
+# tasks file for rstudio-server
+---
+- include: install.yml
+- include: configure.yml
+
+- name: start and enable service
+  service:
+    name: rstudio-server
+    state: started
+    enabled: true
