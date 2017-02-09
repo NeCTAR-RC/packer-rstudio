@@ -1,15 +1,37 @@
-# Packer R-Studio
+# Packer R-Studio image
 
-Packer scripts to build an R-Studio image on the NeCTAR Cloud.
+This project includes scripts to build an R-Studio image suitable for the NeCTAR Research Cloud environment.
 
-## Usage
+We have:
+ * Packer JSON config for building the image on the NeCTAR Research Cloud.
+ * Ansible roles for provisioning R, R-Studio, R-Studio server + remote desktop with X2Go and XFCE.
+ * Vagrant config for building and testing the image build process locally.
 
-Make sure all the required software (listed above) is installed, then cd to the directory containing this README.md file, and run:
+## Requirements
 
-    $ packer build rstudio.json
+You'll require the following tools installed and in your path
+ * Packer
+ * Ansible
+ * Vagrant and VirtualBox (optional, for testing)
+ * OpenStack CLI
+ * jq (JSON CLI tool)
+ * QEMU tools (for image shrinking process)
 
-## Testing built boxes
+## Building the image
 
-There's an included Vagrantfile that allows quick testing of the built Vagrant boxes. From this same directory, run one of the following commands after building the boxes:
+ 1. Make sure all the required software (listed above) is installed
+ 1. Load your NeCTAR RC credentials into your environment
+ 1. cd to the directory containing this README.md file
+ 1. The build script
+```
+./build_local.sh
+```
 
-    $ vagrant up
+## Testing the image with Vagrant
+
+We include a Vagrantfile which can be used for testing the provisioning process with Ansible and test the resulting image.
+
+```
+$ vagrant up
+```
+Once the build process is completed, R-Studio server web interface should be accessible at http://localhost:8080 (which is redirected to port 80 on the VM).

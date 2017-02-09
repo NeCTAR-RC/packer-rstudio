@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
 # This script requires:
-#  - Packer installes
+#  - Packer
+#  - jq (JSON CLI tool)
+#  - QEMU tools
 #  - OpenStack credentials loaded in your environment
 
 FILE=$1

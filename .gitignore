@@ -3,3 +3,4 @@ packer_cache/*
 iso/*
 .vagrant
 ansible/playbook.retry
+ansible/inventory.cfg
