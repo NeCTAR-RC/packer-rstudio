@@ -1,0 +1,11 @@
+---
+- name: restart guacd
+  become: yes
+  service: name=guacd
+           state=restarted
+
+- name: restart tomcat
+  become: yes
+  service: name={{ tomcat_package }}
+           state=restarted
+

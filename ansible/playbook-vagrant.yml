@@ -8,11 +8,13 @@
 
   roles:
     - setup
-    - xfce4-desktop
-    - x2go-server
-    - r
-    - rstudio
-    - rstudio-server
-    - shiny-server
+#    - xfce4-desktop
+#    - x2go-server
+    - guacamole
+    - tigervncserver
+#    - r
+#    - rstudio
+#    - rstudio-server
+#    - shiny-server
     - nginx
     - custom-config

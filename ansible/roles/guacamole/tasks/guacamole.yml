@@ -1,0 +1,93 @@
+---
+- name: Download Guacamole server
+  get_url:
+    url: "https://mirror.aarnet.edu.au/pub/apache/guacamole/{{ guacamole_version }}/source/guacamole-server-{{ guacamole_version }}.tar.gz"
+    dest: '/tmp/guacamole-server-{{ guacamole_version }}.tar.gz'
+
+- name: Extract Guacamole server
+  unarchive:
+    src: '/tmp/guacamole-server-{{ guacamole_version }}.tar.gz'
+    copy: no
+    dest: /tmp
+
+- name: Install dependencies for Guacamole
+  package:
+    name: '{{ item }}'
+    state: 'latest'
+  with_items: '{{ guacamole_packages }}'
+
+- name: Configure Tomcat
+  become: yes
+  lineinfile:
+    dest: /etc/default/tomcat8
+    state: present
+    regexp: '^JAVA_OPTS=.*'
+    line: 'JAVA_OPTS="-Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC -Djava.security.egd=file:/dev/./urandom"'
+
+- name: Build Guacamole server
+  shell: "{{ item }}"
+  args:
+    chdir: "/tmp/guacamole-server-{{ guacamole_version }}"
+    creates: "{{ guacamole_install_prefix }}/sbin/guacd"
+  with_items: 
+    - "./configure --prefix={{ guacamole_install_prefix }}"
+    - "make -j {{ ansible_processor_vcpus }}"
+    - make install
+    - ldconfig
+  notify: restart guacd
+
+- name: Check if ldconfig has picked up libguac
+  shell: 'ldconfig -p | grep -q libguac'
+  ignore_errors: yes
+  register: run_ldconfig
+
+- name: Run ldconfig
+  shell: ldconfig
+  ignore_errors: yes
+  when: run_ldconfig.rc == 1
+
+- name: Install systemd service file for guacd
+  template:
+    src: guacd.system.j2
+    dest: /etc/systemd/system/guacd.service
+  notify: restart guacd
+
+- name: Start guacd
+  service:
+    name: guacd
+    enabled: yes
+    state: started
+
+- name: Download Guacamole client
+  get_url:
+    url: "https://mirror.aarnet.edu.au/pub/apache/guacamole/{{ guacamole_version }}/binary/guacamole-{{ guacamole_version }}.war"
+    dest: "/var/lib/{{ tomcat_package }}/webapps/guacamole.war"
+
+- name: "Make Guacamole home directory"
+  file:
+    path: "{{ guacamole_home }}"
+    state: directory
+
+- name: Symlink guacamole home
+  file:
+    src: "{{ guacamole_home }}"
+    dest: "/usr/share/{{ tomcat_package }}/.guacamole"
+    state: link
+    force: yes
+    follow: true
+
+- name: Create Guacamole directories
+  file:
+    path: "{{ guacamole_home }}/{{ item }}"
+    state: directory
+  with_items:
+    - lib
+    - extensions
+
+- name: Add guacamole settings
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ guacamole_home }}/{{ item }}"
+  with_items:
+    - guacamole.properties
+  notify: restart tomcat

@@ -4,8 +4,8 @@
       "type": "openstack",
       "flavor": "m2.xsmall",
       "image_name": "NeCTAR R-Studio (Ubuntu 16.04 LTS Xenial)",
-      "source_image": "8ccac42b-2ea4-4abd-b4da-32a97a97fb46",
-      "availability_zone": "NCI",
+      "source_image": "f82012f7-5042-48aa-81c2-a59684840c23",
+      "availability_zone": "melbourne-qh2",
       "ssh_username": "ubuntu"
     }
   ],

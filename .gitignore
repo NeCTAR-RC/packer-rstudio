@@ -2,5 +2,6 @@ packer_cache/*
 *.box
 iso/*
 .vagrant
-ansible/playbook.retry
+*.retry
 ansible/inventory.cfg
+*.log

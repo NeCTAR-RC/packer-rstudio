@@ -1,0 +1,20 @@
+---
+guacamole_install_prefix: /usr/local
+
+guacamole_guacd_server: 127.0.0.1
+guacamole_guacd_port: 4822
+guacamole_home: /etc/guacamole
+guacamole_version: 0.9.14
+
+xrdp_dependency_packages:
+  - adduser
+  - init-system-helpers
+  - libfuse2
+  - libjpeg8
+  - libopus0
+  - libpam0g
+  - libssl1.0.0
+  - libx11-6
+  - libxfixes3
+  - libxrandr2
+  - xserver-xorg-core

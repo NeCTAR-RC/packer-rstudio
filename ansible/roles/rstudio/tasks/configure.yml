@@ -1,0 +1,7 @@
+- name: configure | Renviron.site
+  template:
+    src: Renviron.site.j2
+    dest: /etc/R/Renviron.site
+    owner: root
+    group: root
+    mode: 0644

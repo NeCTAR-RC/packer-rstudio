@@ -35,3 +35,9 @@
     - xfce4-panel.xml
     - xfce4-desktop.xml
     - xfce4-power-manager.xml
+
+- name: Disable lightdm on startup
+  service:
+    name: lightdm
+    state: stopped
+    enabled: false

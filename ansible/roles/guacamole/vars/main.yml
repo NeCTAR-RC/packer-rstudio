@@ -1,0 +1,28 @@
+---
+tomcat_package: tomcat8
+
+guacamole_packages:
+  - build-essential
+  - dpkg-dev
+  - freerdp
+  - freerdp-x11
+  - ghostscript
+  - libavcodec-dev
+  - libavutil-dev
+  - libcairo2-dev
+  - libfreerdp-dev
+  - libjpeg-turbo8-dev
+  - libossp-uuid-dev
+  - libpango1.0-dev
+  - libpng12-dev
+  - libpulse-dev
+  - libssh2-1-dev
+  - libssl-dev
+  - libswscale-dev
+  - libtelnet-dev
+  - libvncserver-dev
+  - libvorbis-dev
+  - libwebp-dev
+  - wget
+  - xrdp
+  - "{{ tomcat_package }}"

@@ -1,4 +1,3 @@
-# tasks file for rstudio-server
 ---
 - name: configure | update (server) configuration file
   template:
@@ -8,3 +7,9 @@
     group: root
     mode: 0644
   notify: restart shiny-server
+
+- name: permissions for site dir
+  file:
+    dest: /srv/shiny-server
+    owner: ubuntu
+    group: users

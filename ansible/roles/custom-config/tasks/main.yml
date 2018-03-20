@@ -1,6 +1,8 @@
 ---
 - name: write nginx index file
-  copy: src=files/index.html dest=/var/www/html/index.html
+  copy:
+    src: files/index.html
+    dest: /var/www/html/index.html
 
 - name: install extra packages
   apt:

@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+
+{% if rstudio_working_directory is defined %}
+setwd("{{ rstudio_working_directory }}")
+{% endif %}

@@ -1,0 +1,27 @@
+---
+- name: Install dependencies for XRDP
+  package:
+    name: '{{ item }}'
+    state: 'latest'
+  with_items: '{{ xrdp_dependency_packages }}'
+
+- name: Download XRDP packages
+  get_url:
+    url: '{{ item }}'
+    dest: '/tmp'
+  with_items:
+    - http://ftp.swin.edu.au/ubuntu/ubuntu/pool/universe/x/xrdp/xrdp_0.9.0~20160601+git703fedd-3_amd64.deb
+    - http://ftp.swin.edu.au/ubuntu/ubuntu/pool/universe/x/xrdp/xorgxrdp_0.9.0~20160601+git703fedd-3_amd64.deb
+
+- name: Install XRDP packages
+  apt:
+    deb: '{{ item }}'
+  with_items:
+    - /tmp/xrdp_0.9.0~20160601+git703fedd-3_amd64.deb
+    - /tmp/xorgxrdp_0.9.0~20160601+git703fedd-3_amd64.deb
+
+- name: Start xrdp
+  service:
+    name: xrdp
+    enabled: yes
+    state: started

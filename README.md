@@ -4,7 +4,7 @@ This project includes scripts to build an R-Studio image suitable for the NeCTAR
 
 We have:
  * Packer JSON config for building the image on the NeCTAR Research Cloud.
- * Ansible roles for provisioning R, R-Studio, R-Studio server + remote desktop with X2Go and XFCE.
+ * Ansible roles for provisioning R, R-Studio, R-Studio server + remote desktop with Guacamole, X2Go and XFCE.
  * Vagrant config for building and testing the image build process locally.
 
 ## Requirements

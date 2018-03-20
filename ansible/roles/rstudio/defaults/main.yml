@@ -2,3 +2,5 @@
 ---
 rstudio_version: 1.0.44
 rstudio_install: []
+
+rstudio_disable_check_for_updates: 1

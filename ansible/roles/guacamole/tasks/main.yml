@@ -1,0 +1,4 @@
+---
+- include: xrdp.yml
+- include: guacamole.yml
+- include: auth-pam.yml
