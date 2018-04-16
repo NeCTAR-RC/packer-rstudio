@@ -18,3 +18,4 @@
 #    - shiny-server
     - nginx
     - custom-config
+    - facts

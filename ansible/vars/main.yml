@@ -1,5 +1,12 @@
 ---
+# Save these vars for setting as image properties
+facts:
+  - rstudio_version
+
 shared_r_modules_path: /mnt
+
+rstudio_version: 1.1.442
+rstudio_server_version: "{{ rstudio_version }}"
 
 r_cran_mirror: https://cran.ms.unimelb.edu.au
 r_install_dev: true

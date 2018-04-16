@@ -18,4 +18,5 @@
     - shiny-server
     - nginx
     - custom-config
+    - facts
     - image-cleanup

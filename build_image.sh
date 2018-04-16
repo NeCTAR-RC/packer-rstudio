@@ -31,11 +31,10 @@ NAME=$(jq -r '.builders[0].image_name' ${FILE}.json)
 BUILD_NUMBER=$(date "+%Y%m%d%H%M")
 BUILD_NAME="${FILE}_build_${BUILD_NUMBER}"
 
-# Hard coded NeCTAR Ubuntu 16.04 for now
+# Get the latest Xenial Murano image
 SOURCE_ID=$(openstack image list --limit 100 --long -f value -c ID -c Project --property 'name=NeCTAR Ubuntu 16.04 LTS (Xenial) amd64 (pre-installed murano-agent)' | grep 1fe7dcac580443a4818d10d18151e42f | cut -d' ' -f1)
 
 # Update the name to include build number
-#jq ".builders[0].source_image = \"${SOURCE_ID}\" | .builders[0].image_name = \"${BUILD_NAME}\" | .builders[0].tenant_name = \"${OS_PROJECT_NAME}\"" ${FILE}.json > /tmp/${BUILD_NAME}_packer.json
 jq ".builders[0].source_image = \"${SOURCE_ID}\" | .builders[0].image_name = \"${BUILD_NAME}\"" ${FILE}.json > /tmp/${BUILD_NAME}_packer.json
 
 echo "Building image ${NAME}..."
@@ -52,6 +51,13 @@ rm ${BUILD_NAME}_large.qcow2
 if [ "${BUILD_PROPERTY}" != "" ] ; then
     GLANCE_ARGS="--property ${BUILD_PROPERTY}=${BUILD_NUMBER}"
 fi
+
+# Discover facts to set as image properties
+FACT_DIR=ansible/.facts
+for FACT in $(ls $FACT_DIR); do
+    VAL=$(cat $FACT_DIR/$FACT)
+    GLANCE_ARGS="--property ${FACT}=${VAL} "
+done
 
 if [ "${MAKE_PUBLIC}" == "true" ] ; then
     GLANCE_ARGS="--public ${GLANCE_ARGS}"
