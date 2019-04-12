@@ -11,5 +11,12 @@
 - name: permissions for site dir
   file:
     dest: /srv/shiny-server
-    owner: ubuntu
+    owner: "{{ default_user }}"
     group: users
+    recurse: yes
+
+- name: Create symbolic link for shiny
+  file:
+    src: /srv/shiny-server
+    path: /etc/skel/shiny-server
+    state: link

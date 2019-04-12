@@ -2,19 +2,19 @@
 tomcat_package: tomcat8
 
 guacamole_packages:
+  - autoconf
   - build-essential
   - dpkg-dev
-  - freerdp
-  - freerdp-x11
   - ghostscript
   - libavcodec-dev
   - libavutil-dev
   - libcairo2-dev
   - libfreerdp-dev
+  - libjpeg-dev
   - libjpeg-turbo8-dev
   - libossp-uuid-dev
   - libpango1.0-dev
-  - libpng12-dev
+  - libpng-dev
   - libpulse-dev
   - libssh2-1-dev
   - libssl-dev

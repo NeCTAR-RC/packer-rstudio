@@ -1,26 +1,18 @@
 ---
-- name: Install dependencies for XRDP
+- name: Install XRDP
   package:
-    name: '{{ item }}'
-    state: 'latest'
-  with_items: '{{ xrdp_dependency_packages }}'
+    name: '{{ xrdp_packages }}'
+    state: present
 
-- name: Download XRDP packages
-  get_url:
-    url: '{{ item }}'
-    dest: '/tmp'
-  with_items:
-    - http://ftp.swin.edu.au/ubuntu/ubuntu/pool/universe/x/xrdp/xrdp_0.9.0~20160601+git703fedd-3_amd64.deb
-    - http://ftp.swin.edu.au/ubuntu/ubuntu/pool/universe/x/xrdp/xorgxrdp_0.9.0~20160601+git703fedd-3_amd64.deb
+# XRDP creats this mountpoint in the users home directory which generates
+# errors with any file manager, so we simply move it to /tmp out of the way
+- name: thinclient_drives fix
+  lineinfile:
+    path: /etc/xrdp/sesman.ini
+    regexp: '^FuseMountName=thinclient_drives'
+    line: 'FuseMountName=/tmp/thinclient_drives'
 
-- name: Install XRDP packages
-  apt:
-    deb: '{{ item }}'
-  with_items:
-    - /tmp/xrdp_0.9.0~20160601+git703fedd-3_amd64.deb
-    - /tmp/xorgxrdp_0.9.0~20160601+git703fedd-3_amd64.deb
-
-- name: Start xrdp
+- name: Start XRDP
   service:
     name: xrdp
     enabled: yes

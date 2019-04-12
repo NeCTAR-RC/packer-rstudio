@@ -2,7 +2,8 @@
 # https://github.com/voegelas/guacamole-auth-pam
 - name: Download PAM Auth
   get_url:
-    url: "https://github.com/voegelas/guacamole-auth-pam/releases/download/v1.2/guacamole-auth-pam-{{ guacamole_version }}.jar"
+    #url: "https://github.com/voegelas/guacamole-auth-pam/releases/download/v1.2/guacamole-auth-pam-{{ guacamole_version }}.jar"
+    url: "https://github.com/voegelas/guacamole-auth-pam/releases/download/v1.4/guacamole-auth-pam-1.0.0.jar"
     dest: "{{ guacamole_home }}/extensions"
     remote_src: True
   notify: restart tomcat

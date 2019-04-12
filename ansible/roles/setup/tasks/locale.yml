@@ -1,0 +1,3 @@
+---
+- name: set locale
+  command: "/usr/sbin/update-locale LANG={{ locale }} LC_ALL=$local"

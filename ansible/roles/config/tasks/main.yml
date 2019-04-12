@@ -1,0 +1,16 @@
+---
+- name: write nginx index file
+  copy:
+    src: files/index.html
+    dest: /var/www/html/index.html
+
+- name: install extra packages
+  apt:
+    name: "{{ extra_packages }}"
+    state: present
+
+- name: Adding user www-data to group shadow for nginx pam
+  user:
+    name: www-data
+    groups: shadow
+    append: yes

@@ -1,16 +1,17 @@
 - name: install xfce4 desktop packages
   apt:
-    name: '{{ item }}'
+    name: '{{ xfce4_apt_packages }}'
     state: present
     install_recommends: yes
-  with_items: '{{ xfce4_apt_packages }}'
+    update_cache: true
+    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
+
 
 - name: remove unnecessary packages
   apt:
-    name: '{{ item }}'
+    name: '{{ remove_apt_packages }}'
     state: absent
     autoremove: yes
-  with_items: '{{ remove_apt_packages }}'
 
 - name: Install background
   copy:

@@ -30,26 +30,10 @@
     chdir: "/tmp/guacamole-server-{{ guacamole_version }}"
     creates: "{{ guacamole_install_prefix }}/sbin/guacd"
   with_items: 
-    - "./configure --prefix={{ guacamole_install_prefix }}"
+    - "./configure --prefix={{ guacamole_install_prefix }} --with-systemd-dir=/etc/systemd/system"
     - "make -j {{ ansible_processor_vcpus }}"
     - make install
     - ldconfig
-  notify: restart guacd
-
-- name: Check if ldconfig has picked up libguac
-  shell: 'ldconfig -p | grep -q libguac'
-  ignore_errors: yes
-  register: run_ldconfig
-
-- name: Run ldconfig
-  shell: ldconfig
-  ignore_errors: yes
-  when: run_ldconfig.rc == 1
-
-- name: Install systemd service file for guacd
-  template:
-    src: guacd.system.j2
-    dest: /etc/systemd/system/guacd.service
   notify: restart guacd
 
 - name: Start guacd

@@ -1,20 +1,16 @@
-#!/bin/bash -eux
+#!/bin/bash
 
-# Uninstall Ansible and remove PPA.
-apt-get -y remove --purge ansible
-apt-add-repository --remove ppa:ansible/ansible
-apt-get autoremove
-apt-get update
+# Clean up leftover build files
+rm -fr /home/*/{.ssh,.ansible,.cache}
+rm -fr /root/{.ssh,.ansible,.cache}
+rm -fr /root/'~'*
 
-# Delete unneeded files.
-rm -f /home/vagrant/*.sh
+# Truncate any log files
+find /var/log -type f -print0 | xargs -0 truncate -s0
 
 # Clean up Ubuntu user
 userdel -rf ubuntu || true
 
-# Zero out the rest of the free space using dd, then delete the written file.
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -f /EMPTY
-
-# Add `sync` so Packer doesn't quit too early, before the large file is deleted.
 sync

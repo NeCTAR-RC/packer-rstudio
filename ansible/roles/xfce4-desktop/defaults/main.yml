@@ -8,3 +8,8 @@ remove_apt_packages:
   - xfce4-power-manager
   - xfce4-power-manager-data
   - xfce4-power-manager-plugins
+  - light-locker
+  - gnome-session-bin  # remove these to force xfce as the default X session
+  - mate-session-manager
+  - bluez
+  - pulseaudio  # would be better to fix sound

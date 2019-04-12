@@ -14,9 +14,9 @@
   with_items: "{{ shiny_server_install }}"
 
 - name: install | download deb
-  get_url: >-
-    url=https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-{{ shiny_server_version }}-amd64.deb
-    dest=/tmp
+  get_url:
+    url: "https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-{{ shiny_server_version }}-amd64.deb"
+    dest: /tmp
 
 - name: install | install deb
   apt:

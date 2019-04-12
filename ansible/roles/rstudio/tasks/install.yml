@@ -24,7 +24,7 @@
 
 - name: install | download deb
   get_url:
-    url: 'https://download1.rstudio.org/rstudio-{{ rstudio_version }}-amd64.deb'
+    url: 'https://download1.rstudio.org/desktop/{{ ansible_distribution_release }}/amd64/rstudio-{{ rstudio_version }}-amd64.deb'
     dest: '{{ rstudio_downloads_path }}/rstudio-{{ rstudio_version }}-amd64.deb'
 
 - name: install | install deb
