@@ -12,8 +12,9 @@
     dest: /etc/apt/sources.list
     force: true
 
-- name: Update and upgrade apt packages
+- name: Perform a full upgrade
   apt:
-    upgrade: yes
+    upgrade: dist
     update_cache: yes
-    cache_valid_time: 86400 #One day
+    dpkg_options: 'force-confold,force-confdef'
+  when: nectar_test_build is not defined
