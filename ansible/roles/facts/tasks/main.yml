@@ -4,6 +4,7 @@
     module: file
     path: "{{ playbook_dir }}/.facts"
     state: directory
+  become: no
 
 - name: Save facts
   local_action:
@@ -11,3 +12,4 @@
     content: "{{ vars[item] }}"
     dest: "{{ playbook_dir }}/.facts/{{ item }}"
   with_items: "{{ facts }}"
+  become: no
