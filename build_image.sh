@@ -32,12 +32,12 @@ echo "Building image ${NAME}..."
 packer build /tmp/${BUILD_NAME}_packer.json
 rm /tmp/${BUILD_NAME}_packer.json
 
-openstack image save --file ${BUILD_NAME}_large.qcow2 ${BUILD_NAME}
+openstack image save --file ${BUILD_NAME}-large.qcow2 ${BUILD_NAME}
 openstack image delete ${BUILD_NAME}
 
 echo "Shrinking image..."
-qemu-img convert -c -o compat=0.10 -O qcow2 ${BUILD_NAME}_large.qcow2 ${BUILD_NAME}.qcow2
-rm ${BUILD_NAME}_large.qcow2
+qemu-img convert -c -o compat=0.10 -O qcow2 ${BUILD_NAME}-large.qcow2 ${BUILD_NAME}.qcow2
+rm ${BUILD_NAME}-large.qcow2
 
 # Base properties
 GLANCE_ARGS='--property architecture=x86_64 --property os_distro=ubuntu --property os_version=18.04'

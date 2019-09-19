@@ -3,7 +3,7 @@
 r_cran_mirror: https://cloud.r-project.org/
 r_bioclite_url: https://bioconductor.org/biocLite.R
 
-r_install_dev: false
+r_install_dev: true
 r_install:
   - littler
 

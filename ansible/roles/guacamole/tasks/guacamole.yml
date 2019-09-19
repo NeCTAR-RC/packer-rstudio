@@ -12,9 +12,8 @@
 
 - name: Install dependencies for Guacamole
   package:
-    name: '{{ item }}'
+    name: '{{ guacamole_packages }}'
     state: 'latest'
-  with_items: '{{ guacamole_packages }}'
 
 - name: Configure Tomcat
   become: yes
