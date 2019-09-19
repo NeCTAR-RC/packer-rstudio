@@ -7,7 +7,8 @@
     - vars/main.yml
 
   roles:
-    - default_user
+    - image-name
+    - default-user
     - setup
     - xfce4-desktop
     - x2go-server

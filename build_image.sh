@@ -20,9 +20,10 @@ FILE=packer
 NAME=$(jq -r '.builders[0].image_name' ${FILE}.json)
 BUILD_NUMBER=$(date "+%Y%m%d%H%M")
 BUILD_NAME="${FILE}_build_${BUILD_NUMBER}"
+FACT_DIR=ansible/.facts
 
 # Get the latest Bionic Murano image
-IMAGE_NAME='NeCTAR Ubuntu 18.04 LTS (Bionic) amd64 (pre-installed murano-agent)'
+IMAGE_NAME='NeCTAR Ubuntu 18.04 LTS (Bionic) amd64'
 SOURCE_ID=$(openstack image show -f value -c id "$IMAGE_NAME")
 
 # Update the name to include build number
@@ -39,20 +40,17 @@ echo "Shrinking image..."
 qemu-img convert -c -o compat=0.10 -O qcow2 ${BUILD_NAME}-large.qcow2 ${BUILD_NAME}.qcow2
 rm ${BUILD_NAME}-large.qcow2
 
-# Base properties
-GLANCE_ARGS='--property architecture=x86_64 --property os_distro=ubuntu --property os_version=18.04'
-
 # QEMU Guest Agent is installed
-GLANCE_ARGS="--property hw_qemu_guest_agent=yes ${GLANCE_ARGS}"
-
-# Discover facts to set as image properties
-FACT_DIR=ansible/.facts
-for FACT in $(ls $FACT_DIR); do
-    VAL=$(cat $FACT_DIR/$FACT)
-    GLANCE_ARGS="--property ${FACT}=${VAL} ${GLANCE_ARGS}"
-done
+GLANCE_ARGS="--property hw_qemu_guest_agent=yes"
 
 echo "Creating image \"${NAME}\"..."
 IMAGE_ID=$(openstack image create -f value -c id --disk-format qcow2 --container-format bare --file ${BUILD_NAME}.qcow2 ${GLANCE_ARGS} "${NAME}")
-echo "Image ID: ${IMAGE_ID}"
+echo "Image $IMAGE_ID created!"
+
+echo "Applying properties..."
+for FACT in $(ls $FACT_DIR); do
+    VAL=$(cat $FACT_DIR/$FACT)
+    echo "  -> $FACT: '$VAL'..."
+    openstack image set --property $FACT=$"$VAL" $IMAGE_ID
+
 rm ${BUILD_NAME}.qcow2
