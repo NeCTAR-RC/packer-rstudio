@@ -11,6 +11,7 @@
     - default-user
     - setup
     - xfce4-desktop
+    - owncloud-client
     - x2go-server
     - guacamole
     - tigervncserver
