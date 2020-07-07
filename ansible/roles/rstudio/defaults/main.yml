@@ -1,6 +1,6 @@
 # defaults file for rstudio
 ---
-rstudio_version: 1.2.1578
+rstudio_version: 1.3.959
 rstudio_install: []
 
 rstudio_disable_check_for_updates: 1

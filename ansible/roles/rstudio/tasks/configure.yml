@@ -6,6 +6,15 @@
     group: root
     mode: 0644
 
+- name: configure | Rprofile.site
+  template:
+    src: Rprofile.site.j2
+    dest: /etc/R/Rprofile.site
+    owner: root
+    group: root
+    mode: 0644
+
+
 # X2Go only provides OpenGL 1.2 which causes R-Studio to crash as it requires
 # at least 1.3. This forces R-Studio to disable OpenGL under X2Go
 - name: Install X2Go rendering fix

@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
 
   end
 
-  #config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder ".", "/vagrant", disabled: true
 
   config.vm.network :forwarded_port, guest: 80, host: 8080, host_ip: '0.0.0.0'
   config.vm.network :forwarded_port, guest: 443, host: 8443, host_ip: '0.0.0.0'

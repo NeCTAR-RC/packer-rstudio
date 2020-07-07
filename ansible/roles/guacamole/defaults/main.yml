@@ -5,7 +5,7 @@ guacamole_guacd_server: 127.0.0.1
 guacamole_guacd_port: 4822
 
 guacamole_home: /etc/guacamole
-guacamole_version: 1.0.0
+guacamole_version: 1.2.0
 
 xrdp_packages:
   - adduser
