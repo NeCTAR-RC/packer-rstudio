@@ -23,7 +23,9 @@
   register: r_install_package
   changed_when: "r_install_package.stdout_lines[-1] is defined and r_install_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages }}"
-  when: item.state is undefined or item.state == 'present'
+  when:
+    - item.state is undefined or item.state == 'present'
+    - nectar_test_build | default(False) == False
   ignore_errors: True
 
 - name: packages | remove
@@ -34,4 +36,6 @@
   register: r_remove_package
   changed_when: "r_remove_package.stdout_lines[-1] is defined and r_remove_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages }}"
-  when: item.state is defined and item.state == 'absent'
+  when:
+    - item.state is defined and item.state == 'absent'
+    - nectar_test_build | default(False) == False

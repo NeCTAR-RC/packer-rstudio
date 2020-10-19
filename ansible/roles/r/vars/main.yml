@@ -1,8 +1,6 @@
 # vars file for r
 ---
-r_repository: 
-  - type: deb
-    url: "{{ r_cran_mirror }}/bin/linux/ubuntu {{ ansible_distribution_release }}-cran40/"
+r_repository: "{{ r_cran_mirror }}/bin/linux/ubuntu {{ ansible_distribution_release }}-cran40/"
 
 r_dependencies:
   - r-base

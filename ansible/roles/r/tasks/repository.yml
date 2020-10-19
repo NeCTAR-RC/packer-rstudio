@@ -8,7 +8,6 @@
 
 - name: repository | add cran-r
   apt_repository:
-    repo: "{{ item.type }} {{ item.url }}"
+    repo: "deb {{ r_repository }}"
     state: present
     update_cache: true
-  with_items: "{{ r_repository }}"

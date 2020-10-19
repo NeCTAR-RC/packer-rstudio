@@ -11,3 +11,14 @@
   apt:
     name: "{{ r_install }}"
     state: latest
+
+- name: Get R version
+  shell: "R --version | awk '/R version/ {print $3}'"
+  register: r_installed_version
+
+- debug:
+    msg: "R version is {{ r_installed_version.stdout }}"
+
+- name: Set R version fact
+  set_fact:
+    r_version: "{{ r_installed_version.stdout }}"
