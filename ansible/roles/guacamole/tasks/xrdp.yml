@@ -12,6 +12,19 @@
     regexp: '^FuseMountName=thinclient_drives'
     line: 'FuseMountName=/tmp/thinclient_drives'
 
+- name: Create xrdp-pulseaudio-installer directory
+  file:
+    path: /var/lib/xrdp-pulseaudio-installer
+    state: directory
+
+- name: Install XRDP PulseAudio modules
+  copy:
+    src: "xrdp-pulseaudio/{{ ansible_distribution_release }}/{{ item }}"
+    dest: "/var/lib/xrdp-pulseaudio-installer/{{ item }}"
+  with_items:
+    - module-xrdp-sink.so
+    - module-xrdp-source.so
+
 - name: Start XRDP
   service:
     name: xrdp

@@ -8,7 +8,7 @@
         <param name="port" value="3389" />
         <param name="color-depth" value="24" />
         <param name="security" value="rdp" />
-        <param name="disable-audio" value="true" />
+        <param name="disable-audio" value="false" />
         <param name="server-layout" value="en-us-qwerty" />
     </config>
 
