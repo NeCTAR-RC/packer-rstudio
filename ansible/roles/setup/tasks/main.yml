@@ -3,3 +3,4 @@
 - include: etc_hosts.yml
 - include: remove_floppy.yml
 - include: timezone.yml
+- include: disable_apport.yml

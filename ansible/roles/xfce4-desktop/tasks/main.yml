@@ -1,3 +1,4 @@
+---
 - name: install xfce4 desktop packages
   apt:
     name: '{{ xfce4_apt_packages }}'
@@ -5,7 +6,6 @@
     install_recommends: yes
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
-
 
 - name: remove unnecessary packages
   apt:
@@ -36,6 +36,7 @@
     - xfce4-panel.xml
     - xfce4-desktop.xml
     - xfce4-power-manager.xml
+    - xsettings.xml
 
 - name: Disable lightdm on startup
   service:

@@ -2,17 +2,15 @@
 ---
 - name: install | dependencies
   apt:
-    name: "{{ item }}"
+    name: "{{ rstudio_dependencies }}"
     state: latest
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
-  with_items: "{{ rstudio_dependencies }}"
 
 - name: install | additional
   apt:
-    name: "{{ item }}"
+    name: "{{ rstudio_install }}"
     state: latest
-  with_items: "{{ rstudio_install }}"
 
 - name: install | create (download) directory
   file:
