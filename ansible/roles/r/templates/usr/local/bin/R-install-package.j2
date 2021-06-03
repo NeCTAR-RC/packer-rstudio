@@ -16,8 +16,15 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
     withCallingHandlers(install.packages(package, lib, repos), warning = stop);
   } else if (type == 'bioconductor') {
     withCallingHandlers({
-      source('{{ r_bioclite_url }}')
-      biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE)
+      if (!requireNamespace('BiocManager', quietly = TRUE))
+        install.packages('BiocManager', lib)
+      BiocManager::install(package, lib = lib)
+    }, warning = stop);
+  } else if (type == 'github') {
+    withCallingHandlers({
+      if (!requireNamespace('remotes', quietly = TRUE))
+        install.packages('remotes', lib)
+      remotes::install_github(package, lib = lib)
     }, warning = stop);
   } else {
     cat("Unrecognised type\n");
