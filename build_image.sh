@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # This script requires:
 #  - Packer
@@ -31,7 +31,7 @@ rm -fr $FACT_DIR $TAG_DIR
 
 # Get the latest Bionic image
 IMAGE_NAME='NeCTAR Ubuntu 18.04 LTS (Bionic) amd64'
-SOURCE_ID=$(openstack image show -f value -c id "$IMAGE_NAME")
+SOURCE_ID=$(openstack image list -f value -c ID --public --name "$IMAGE_NAME" | head -n1)
 echo "Found base image $IMAGE_NAME ($SOURCE_ID)..."
 
 # Update the name to include build number
