@@ -29,8 +29,8 @@ FACT_DIR=ansible/.facts
 TAG_DIR=ansible/.tags
 rm -fr $FACT_DIR $TAG_DIR
 
-# Get the latest Bionic image
-IMAGE_NAME='NeCTAR Ubuntu 18.04 LTS (Bionic) amd64'
+# Get the latest Focal image
+IMAGE_NAME='NeCTAR Ubuntu 20.04 LTS (Focal) amd64'
 SOURCE_ID=$(openstack image list -f value -c ID --public --name "$IMAGE_NAME" | head -n1)
 echo "Found base image $IMAGE_NAME ($SOURCE_ID)..."
 

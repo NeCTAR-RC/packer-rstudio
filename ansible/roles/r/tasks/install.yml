@@ -22,3 +22,7 @@
 - name: Set R version fact
   set_fact:
     r_version: "{{ r_installed_version.stdout }}"
+
+- name: Set R version image property
+  set_fact:
+    nectar_image_property_r_version: "{{ r_installed_version.stdout }}"

@@ -18,7 +18,7 @@
 - name: Configure Tomcat
   become: yes
   lineinfile:
-    dest: /etc/default/tomcat8
+    dest: "/etc/default/{{ tomcat_package }}"
     state: present
     regexp: '^JAVA_OPTS=.*'
     line: 'JAVA_OPTS="-Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC -Djava.security.egd=file:/dev/./urandom"'

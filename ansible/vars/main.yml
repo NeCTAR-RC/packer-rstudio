@@ -11,7 +11,7 @@ locale: en_AU.UTF-8
 
 shared_r_modules_path: /mnt
 
-rstudio_version: 1.3.1093
+rstudio_version: 1.4.1717
 rstudio_server_version: "{{ rstudio_version }}"
 
 r_cran_mirror: https://cran.ms.unimelb.edu.au

@@ -20,11 +20,12 @@
     group: root
     mode: 0755
 
+# Yes, bionic, even for focal
 - name: install | download deb
   get_url:
-    url: 'https://download1.rstudio.org/desktop/{{ ansible_distribution_release }}/amd64/rstudio-{{ rstudio_version }}-amd64.deb'
-    dest: '{{ rstudio_downloads_path }}/rstudio-{{ rstudio_version }}-amd64.deb'
+    url: "{{ rstudio_package_url }}"
+    dest: "{{ rstudio_downloads_path }}/rstudio-{{ rstudio_version }}-amd64.deb"
 
 - name: install | install deb
   apt:
-    deb: '{{ rstudio_downloads_path }}/rstudio-{{ rstudio_version }}-amd64.deb'
+    deb: "{{ rstudio_downloads_path }}/rstudio-{{ rstudio_version }}-amd64.deb"

@@ -18,9 +18,9 @@
     dest: "{{ guacamole_home }}/unix-user-mapping.xml"
   notify: restart tomcat
 
-- name: Adding tomcat8 user to shadow group
+- name: Adding tomcat user to shadow group
   user:
-    name: tomcat8
+    name: tomcat
     groups: shadow
     append: yes
   notify: restart tomcat

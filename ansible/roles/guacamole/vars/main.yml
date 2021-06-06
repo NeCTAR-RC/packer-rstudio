@@ -1,5 +1,5 @@
 ---
-tomcat_package: tomcat8
+tomcat_package: tomcat9
 
 # List of deps can be found at:
 #  https://guacamole.apache.org/doc/gug/installing-guacamole.html

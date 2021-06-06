@@ -2,13 +2,13 @@ Vagrant.configure("2") do |config|
 
   # Ubuntu 18.04 (bionic)
   config.vm.define "rstudio" do |c|
-    c.vm.box = "ubuntu/bionic64"
+    c.vm.box = "ubuntu/focal64"
     c.vm.provider "libvirt" do |v, override|
-      override.vm.box = "generic/ubuntu1804"
+      override.vm.box = "generic/ubuntu2004"
     end
 
     # Fix Weird DNS set in libvirt box
-    c.vm.provision "shell", inline: "sed -i 's/^DNS=.*/DNS=1.1.1.1/g' /etc/systemd/resolved.conf; systemctl restart systemd-resolved"
+    #c.vm.provision "shell", inline: "sed -i 's/^DNS=.*/DNS=1.1.1.1/g' /etc/systemd/resolved.conf; systemctl restart systemd-resolved"
 
     c.vm.provision "ansible" do |ansible|
       ansible.compatibility_mode = "2.0"
