@@ -12,17 +12,17 @@
     regexp: '^FuseMountName=thinclient_drives'
     line: 'FuseMountName=/tmp/thinclient_drives'
 
-
-- name: Get the libpulse module directory
-  shell: "pkg-config --variable=modlibexecdir libpulse"
-  register: libpulse_module_dir
+- name: Create xrdp-pulseaudio-installer directory
+  file:
+    path: /var/lib/xrdp-pulseaudio-installer
+    state: directory
 
 # To build, follow the instructions from
 #  https://github.com/neutrinolabs/pulseaudio-module-xrdp/wiki/README
 - name: Install XRDP PulseAudio modules
   copy:
     src: "xrdp-pulseaudio/{{ ansible_distribution_release }}/{{ item }}"
-    dest: "{{ libpulse_module_dir.stdout }}/{{ item }}"
+    dest: "/var/lib/xrdp-pulseaudio-installer/{{ item }}"
   with_items:
     - module-xrdp-sink.so
     - module-xrdp-source.so
