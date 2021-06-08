@@ -22,5 +22,6 @@
     - nginx
     - certbot
     - config
+    - testing
     - facts
     - cleanup
