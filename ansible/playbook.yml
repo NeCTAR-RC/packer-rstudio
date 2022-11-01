@@ -13,6 +13,7 @@
     - xfce4-desktop
     - owncloud-client
     - x2go-server
+    - xrdp
     - guacamole
     - tigervncserver
     - r
