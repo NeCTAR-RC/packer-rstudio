@@ -1,0 +1,22 @@
+---
+- name: Get ownCloud repository key for Ubuntu
+  apt_key:
+    url: "https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/Ubuntu_{{ ansible_distribution_version }}/Release.key"
+    state: present
+
+- name: Add ownCloud repository for Ubuntu
+  apt_repository:
+    repo: "deb https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/Ubuntu_{{ ansible_distribution_version }}/ /"
+    filename: owncloud
+    update_cache: yes
+    state: present
+
+- name: install ownCloud client
+  package:
+    name: owncloud-client
+    state: present
+
+- name: Remove ownCloud repository for Ubuntu
+  apt_repository:
+    repo: "deb https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/Ubuntu_{{ ansible_distribution_version }}/ /"
+    state: absent

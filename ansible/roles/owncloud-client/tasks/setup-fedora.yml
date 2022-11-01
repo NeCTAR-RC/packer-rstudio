@@ -1,0 +1,18 @@
+---
+- name: Add ownCloud repository for Fedora
+  yum_repository:
+    name: owncloud
+    description: owncloud
+    baseurl: "https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/Fedora_35"
+    gpgcheck: yes
+    gpgkey: "https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/Fedora_35/repodata/repomd.xml.key"
+
+- name: install ownCloud client
+  dnf:
+    name: owncloud-client
+    state: present
+
+- name: Remove ownCloud repository for Fedora
+  yum_repository:
+    name: owncloud
+    state: absent

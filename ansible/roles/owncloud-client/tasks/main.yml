@@ -1,16 +1,8 @@
 ---
-- name: Get ownCloud client apt key
-  apt_key:
-    url: '{{ owncloud_apt_repo_key_url }}'
-    id: '{{ owncloud_apt_repo_key_id }}'
-    state: present
-
-- name: Add ownCloud client repository
-  apt_repository:
-    repo: '{{ owncloud_apt_repo_source }}'
-    state: present
-
-- name: install ownCloud client
-  package:
-    name: owncloud-client
-    state: present
+- name: Include OS-specific tasks
+  include_tasks: "{{ tasks_item }}"
+  with_first_found:
+    - "setup-{{ ansible_distribution | lower }}.yml"
+    - "setup-{{ ansible_os_family | lower }}.yml"
+  loop_control:
+    loop_var: tasks_item

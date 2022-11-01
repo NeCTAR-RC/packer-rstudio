@@ -1,0 +1,27 @@
+---
+# Having issues with SSL verification on CentOS 7 and the ownCloud
+# download server, so we've got SSL verification disabled here.
+- name: Import ownCloud repository key for CentOS
+  rpm_key:
+    state: present
+    key: "https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/CentOS_{{ ansible_distribution_major_version }}/repodata/repomd.xml.key"
+    validate_certs: false
+
+- name: Add ownCloud repository for CentOS
+  yum_repository:
+    name: owncloud
+    description: owncloud
+    baseurl: "https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/CentOS_{{ ansible_distribution_major_version }}"
+    gpgcheck: yes
+    gpgkey: "https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/CentOS_{{ ansible_distribution_major_version }}/repodata/repomd.xml.key"
+    sslverify: false  
+
+- name: install ownCloud client
+  yum:
+    name: owncloud-client
+    state: present
+
+- name: Remove ownCloud repository for CentOS
+  yum_repository:
+    name: owncloud
+    state: absent
