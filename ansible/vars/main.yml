@@ -14,7 +14,7 @@ shared_r_modules_path: /mnt
 rstudio_version: 1.4.1717
 rstudio_server_version: "{{ rstudio_version }}"
 
-r_cran_mirror: https://cran.ms.unimelb.edu.au
+r_cran_mirror: https://mirror.aarnet.edu.au/pub/CRAN
 r_install_dev: true
 
 r_install:
